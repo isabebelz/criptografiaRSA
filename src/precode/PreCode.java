@@ -20,17 +20,22 @@ public class PreCode {
     }
 
 
-    public static List<String> divideBlocksAddPadding(String message) {
+    public static List<String> addPaddingDivideBlocks(String preCode) {
 
         List<String> blocks = new ArrayList<>();
-
-        String preCode = preCodeASCII(message);
 
         int paddingSize = BLOCK_SIZE / 8 - preCode.length() % (BLOCK_SIZE / 8);
 
         StringBuilder block = new StringBuilder(preCode);
 
-        block.append(String.valueOf((char) paddingSize).repeat(paddingSize));
+        /*for (int i = 0; i < paddingSize; i++) {
+              block.append((char) paddingSize);
+        }*/
+
+        if (paddingSize != BLOCK_SIZE / 8) {
+            block.append(String.valueOf((char) paddingSize).repeat(paddingSize));
+        }
+
 
         for(int i = 0; i < block.length(); i += BLOCK_SIZE / 8) {
             int end = Math.min(i + BLOCK_SIZE / 8, block.length());

@@ -5,10 +5,11 @@ import java.security.SecureRandom;
 
 public class KeyPairGenerator {
 
-    private BigInteger n, e;
-    BigInteger p, q, d, phiN;
+    private static BigInteger n;
+    private static BigInteger e;
+    private BigInteger p, q, d, phiN;
 
-    KeyPairGenerator() {
+    public KeyPairGenerator() {
         privateKey();
     }
 
@@ -20,7 +21,7 @@ public class KeyPairGenerator {
         return e;
     }
 
-    public void publicKey(BigInteger p, BigInteger q) {
+    public static void publicKey(BigInteger p, BigInteger q) {
 
         n = p.multiply(q);
         e = new BigInteger("65537");
