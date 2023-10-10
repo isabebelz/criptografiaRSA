@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PreCode {
 
-    private static final int BLOCK_SIZE = 256; // block size in bits
+    private static final int BLOCK_SIZE = 128; // block size in bits 256
 
     public static String preCodeASCII(String message) {
 
