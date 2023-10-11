@@ -28,9 +28,9 @@ public class PreCode {
 
         StringBuilder block = new StringBuilder(preCode);
 
-        if (paddingSize != BLOCK_SIZE / 8) {
-            block.append(String.valueOf(paddingSize).repeat(paddingSize));
-        }
+
+        block.append(String.valueOf(paddingSize).repeat(paddingSize));
+
 
 
         for(int i = 0; i < block.length(); i += BLOCK_SIZE / 8) {
@@ -40,6 +40,7 @@ public class PreCode {
 
         return blocks;
     }
+
 
 }
 

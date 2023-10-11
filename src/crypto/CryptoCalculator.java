@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CryptoCalculator {
 
-    public final String encrypt(KeyPairGenerator keyPair, List<String> blocks)  {
+    public static String encrypt(KeyPairGenerator keyPair, List<String> blocks)  {
 
         List<String> encryptedText = new ArrayList<>();
 
@@ -22,6 +22,8 @@ public class CryptoCalculator {
         return encryptedText.toString();
 
     }
+
+
 
 
 

@@ -21,11 +21,9 @@ public class Main {
 
         System.out.println(blocks);
 
-        CryptoCalculator cryptoCalculator = new CryptoCalculator();
-
         KeyPairGenerator keyPair = new KeyPairGenerator();
 
-        String encryptedText = cryptoCalculator.encrypt(keyPair, blocks);
+        String encryptedText = CryptoCalculator.encrypt(keyPair, blocks);
 
         System.out.println(encryptedText);
 

@@ -29,6 +29,7 @@ public class KeyPairGenerator {
 
         BigInteger q;
         BigInteger p;
+
         do {
             p = BigInteger.probablePrime(1024, new SecureRandom());
             q = BigInteger.probablePrime(1024, new SecureRandom());
@@ -38,6 +39,17 @@ public class KeyPairGenerator {
         e = new BigInteger("65537");
 
         BigInteger phiN = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
+
+        /*BigInteger e = BigInteger.TWO;
+
+        while (e.compareTo(phiN) < 0) {
+            if(e.gcd(phiN).equals(BigInteger.ONE)) {
+                return;
+            }
+            else {
+                e = new BigInteger(new SecureRandom);
+            }
+        }*/
 
         d = e.modInverse(phiN);
 
