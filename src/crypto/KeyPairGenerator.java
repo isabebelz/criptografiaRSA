@@ -1,16 +1,58 @@
 package crypto;
 
 import java.math.BigInteger;
-import java.security.SecureRandom;
+
+import java.util.Random;
 
 public class KeyPairGenerator {
-
+    private BigInteger p;
+    private BigInteger q;
     private BigInteger n;
+    private BigInteger phiN;
     private BigInteger e;
     private BigInteger d;
 
     public KeyPairGenerator() {
-        keyPair();
+        generateKeys();
+    }
+
+    public void generateKeys() {
+        // Gere números primos p e q
+        p = generatePrime();
+        q = generatePrime();
+
+        // Calcule n e phi(n)
+        n = p.multiply(q);
+        phiN = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
+
+        // Escolha um valor para e (deve ser um número ímpar e coprimo a phi(n))
+        e = choosePublicKey(phiN);
+
+        // Calcule o valor de d (chave privada)
+        d = calculatePrivateKey(e, phiN);
+    }
+
+    // Função para gerar um número primo grande
+    private static BigInteger generatePrime() {
+        BigInteger prime;
+        do {
+            prime = BigInteger.probablePrime(1024, new Random());
+        } while (!prime.isProbablePrime(100));
+        return prime;
+    }
+
+    // Função para escolher um valor para e (chave pública)
+    private static BigInteger choosePublicKey(BigInteger phiN) {
+        BigInteger publicKey;
+        do {
+            publicKey = new BigInteger(phiN.bitLength(), new Random());
+        } while (publicKey.compareTo(BigInteger.ONE) <= 0 || publicKey.compareTo(phiN) >= 0 || !publicKey.gcd(phiN).equals(BigInteger.ONE));
+        return publicKey;
+    }
+
+    // Função para calcular o valor de d (chave privada)
+    private static BigInteger calculatePrivateKey(BigInteger publicKey, BigInteger phiN) {
+        return publicKey.modInverse(phiN);
     }
 
     public BigInteger getN() {
@@ -25,36 +67,16 @@ public class KeyPairGenerator {
         return d;
     }
 
-    public void keyPair() {
-
-        BigInteger q;
-        BigInteger p;
-
-        do {
-            p = BigInteger.probablePrime(1024, new SecureRandom());
-            q = BigInteger.probablePrime(1024, new SecureRandom());
-        } while(!p.isProbablePrime(100) || !q.isProbablePrime(100) || p.equals(q));
-
-        n = p.multiply(q);
-        e = new BigInteger("65537");
-
-        BigInteger phiN = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
-
-        /*BigInteger e = BigInteger.TWO;
-
-        while (e.compareTo(phiN) < 0) {
-            if(e.gcd(phiN).equals(BigInteger.ONE)) {
-                return;
-            }
-            else {
-                e = new BigInteger(new SecureRandom);
-            }
-        }*/
-
-        d = e.modInverse(phiN);
-
-
+    public BigInteger getP() {
+        return p;
     }
 
+    public BigInteger getQ() {
+        return q;
+    }
 
+    public BigInteger getPhiN() {
+        return phiN;
+    }
 }
+

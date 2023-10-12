@@ -1,22 +1,23 @@
 package crypto;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CryptoCalculator {
 
-    public static String[] encrypt(KeyPairGenerator keyPair, String[] blocks)  {
+    public static List<String> encrypt(KeyPairGenerator keyPair, String[] preCode)  {
 
-        String[] encryptedText = new String[blocks.length];
+        List<String> encryptedText = new ArrayList<>();
 
-        for (String block : blocks) {
+        for (String block : preCode) {
 
             BigInteger m = new BigInteger(block);
 
             BigInteger c = m.modPow(keyPair.getE(), keyPair.getN());
 
-            for(int i = 0; i < blocks.length; i++) {
-                encryptedText[i] = String.valueOf(c);
-            }
+            encryptedText.add(String.valueOf(c));
+
 
         }
 
@@ -25,7 +26,7 @@ public class CryptoCalculator {
     }
 
 
-    public static String decrypt(KeyPairGenerator keyPair, String[] encryptedText) {
+    public static String decrypt(KeyPairGenerator keyPair, List<String> encryptedText) {
 
 
         StringBuilder decryptedText = new StringBuilder();

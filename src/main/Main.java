@@ -14,21 +14,32 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("type a message baitola");
+
         String[] preCode = PreCode.preCodeASCII(sc.nextLine());
 
         System.out.println(Arrays.toString(preCode));
 
-        //List<String> blocks = PreCode.addPaddingDivideBlocks(preCode);
-
-        //System.out.println(blocks);
-
         KeyPairGenerator keyPair = new KeyPairGenerator();
 
-        String[] encryptedText = CryptoCalculator.encrypt(keyPair, preCode);
+        List<String> encryptedText = CryptoCalculator.encrypt(keyPair, preCode);
 
-        System.out.println(Arrays.toString(encryptedText));
+        System.out.println();
+
+        System.out.println("p: " + keyPair.getP());
+        System.out.println("q: " + keyPair.getQ());
+        System.out.println("n: " + keyPair.getN());
+        System.out.println("phi(n): " + keyPair.getPhiN());
+        System.out.println("e: " + keyPair.getE());
+        System.out.println("d: " + keyPair.getD());
+
+        System.out.println();
+
+        System.out.println((encryptedText));
 
         String decryptedText = CryptoCalculator.decrypt(keyPair, encryptedText);
+
+        System.out.println();
 
         System.out.println(decryptedText);
 
