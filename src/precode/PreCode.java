@@ -5,32 +5,30 @@ import java.util.List;
 
 public class PreCode {
 
-    private static final int BLOCK_SIZE = 128; // block size in bits 256
+    //private static final int BLOCK_SIZE = 128; // block size in bits 256
 
-    public static String preCodeASCII(String message) {
+    public static String[] preCodeASCII(String text) {
 
-        StringBuilder preCode = new StringBuilder();
+        String[] preCode = new String[text.length()];
 
-        for(int i = 0; i < message.length(); i++) {
-            char character = message.charAt(i);
-            preCode.append((int) character);//.append(" ");
+        for(int i = 0; i < text.length(); i++) {
+            preCode[i] = String.valueOf((int) text.charAt(i));
         }
 
-        return preCode.toString();
+        return preCode;
     }
 
 
-    public static List<String> addPaddingDivideBlocks(String preCode) {
+    /*public static List<String> addPaddingDivideBlocks(String preCode) {
 
         List<String> blocks = new ArrayList<>();
 
-        int paddingSize = BLOCK_SIZE / 8 - preCode.length() % (BLOCK_SIZE / 8);
+        //int paddingSize = BLOCK_SIZE / 8 - preCode.length() % (BLOCK_SIZE / 8);
 
         StringBuilder block = new StringBuilder(preCode);
 
 
-        block.append(String.valueOf(paddingSize).repeat(paddingSize));
-
+        //block.append(String.valueOf(paddingSize).repeat(paddingSize));
 
 
         for(int i = 0; i < block.length(); i += BLOCK_SIZE / 8) {
@@ -39,7 +37,7 @@ public class PreCode {
         }
 
         return blocks;
-    }
+    }*/
 
 
 }

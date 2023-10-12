@@ -1,14 +1,12 @@
 package crypto;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CryptoCalculator {
 
-    public static String encrypt(KeyPairGenerator keyPair, List<String> blocks)  {
+    public static String[] encrypt(KeyPairGenerator keyPair, String[] blocks)  {
 
-        List<String> encryptedText = new ArrayList<>();
+        String[] encryptedText = new String[blocks.length];
 
         for (String block : blocks) {
 
@@ -16,15 +14,35 @@ public class CryptoCalculator {
 
             BigInteger c = m.modPow(keyPair.getE(), keyPair.getN());
 
-            encryptedText.add(String.valueOf(c));
+            for(int i = 0; i < blocks.length; i++) {
+                encryptedText[i] = String.valueOf(c);
+            }
+
         }
 
-        return encryptedText.toString();
+        return encryptedText;
 
     }
 
 
+    public static String decrypt(KeyPairGenerator keyPair, String[] encryptedText) {
 
+
+        StringBuilder decryptedText = new StringBuilder();
+
+        for (String s : encryptedText) {
+
+            BigInteger encryptedBlock = new BigInteger(s);
+
+            BigInteger m = encryptedBlock.modPow(keyPair.getD(), keyPair.getN());
+
+            decryptedText.append((char) m.intValue());
+
+        }
+
+
+        return decryptedText.toString();
+    }
 
 
 }
