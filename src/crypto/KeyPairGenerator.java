@@ -63,7 +63,7 @@ public class KeyPairGenerator {
     private static BigInteger choosePublicKey(BigInteger phiN) {
         BigInteger publicKey;
         do {
-            publicKey = new BigInteger(phiN.bitLength(), new Random());
+            publicKey = new BigInteger(16, new Random());
         } while (publicKey.compareTo(BigInteger.ONE) <= 0 || publicKey.compareTo(phiN) >= 0 || !publicKey.gcd(phiN).equals(BigInteger.ONE));
         return publicKey;
     }
